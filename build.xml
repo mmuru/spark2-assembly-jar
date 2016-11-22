@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Author : Muru
+    Date   : 10-13-2016
+    Description: Build spark2 assembly jar file.
+-->
+<project name="spark-assembly" default="build-jar" basedir="./">
+
+    <property name="app.name" value="spark-assembly"/>
+    <property name="package.name" value="spark-assembly-2.0.2-hadoop2.4.0.jar"/>
+
+    <property name="spark2.jars.dir" value="/opt/spark/jars"/>
+
+    <property name="dest.dir" value="target"/>
+
+    <target name="clean">
+      <delete dir="${dest.dir}/spark2"/>
+    </target>
+
+    <target name="build-jar">
+      <mkdir dir="${dest.dir}"/>
+      <mkdir dir="${dest.dir}/spark2"/>
+
+      <unzip dest="${dest.dir}/spark2">
+          <fileset dir="${spark2.jars.dir}"/>
+      </unzip>
+      <jar destfile="${dest.dir}/${package.name}" basedir="${dest.dir}/spark2" excludes="META-INF/**/*" zip64Mode="always"/>
+
+    </target>
+</project>
